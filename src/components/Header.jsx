@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Moon, Sun, Bell, Search } from 'lucide-react';
+import { Moon, Sun, Bell, Search, Menu } from 'lucide-react';
+import { useFinance } from '../context/FinanceContext';
 
 const Header = () => {
+  const { setIsMobileMenuOpen } = useFinance();
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -19,11 +21,16 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div>
-        <h1>Dashboard Overview</h1>
-        <p style={{ color: 'var(--text-muted)', margin: '4px 0 0 0', fontSize: '14px' }}>
-          Welcome back! Here's your financial summary.
-        </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <button className="menu-btn" onClick={() => setIsMobileMenuOpen(true)}>
+          <Menu size={24} />
+        </button>
+        <div>
+          <h1>Dashboard Overview</h1>
+          <p style={{ color: 'var(--text-muted)', margin: '4px 0 0 0', fontSize: '14px' }}>
+            Welcome back! Here's your financial summary.
+          </p>
+        </div>
       </div>
 
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>

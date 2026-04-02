@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useMemo } from 'react';
 import { getInitialTransactions, getInitialRole } from '../data/mockData';
 
 const FinanceContext = createContext();
@@ -6,15 +6,30 @@ const FinanceContext = createContext();
 export const useFinance = () => useContext(FinanceContext);
 
 export const FinanceProvider = ({ children }) => {
-  const [transactions, setTransactions] = useState(getInitialTransactions());
-  const [role, setRole] = useState(getInitialRole());
-  
-  // Filters
-  const [filterType, setFilterType] = useState('all'); // 'all', 'income', 'expense'
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('date'); // 'date', 'amount'
 
-  // Persist to LocalStorage
+  // ✅ Load from localStorage first
+  const [transactions, setTransactions] = useState(() => {
+    try {
+      const stored = localStorage.getItem('finance_transactions');
+      return stored ? JSON.parse(stored) : getInitialTransactions();
+    } catch (err) {
+      console.error('Error loading transactions:', err);
+      return getInitialTransactions();
+    }
+  });
+
+  const [role, setRole] = useState(() => {
+    return localStorage.getItem('finance_role') || getInitialRole();
+  });
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Filters
+  const [filterType, setFilterType] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('date');
+
+  // ✅ Persist to LocalStorage
   useEffect(() => {
     localStorage.setItem('finance_transactions', JSON.stringify(transactions));
   }, [transactions]);
@@ -23,16 +38,20 @@ export const FinanceProvider = ({ children }) => {
     localStorage.setItem('finance_role', role);
   }, [role]);
 
-  // Actions
+  // ✅ Actions
   const addTransaction = (newTx) => {
-    setTransactions(prev => [...prev, { ...newTx, id: Date.now().toString() }]);
+    setTransactions(prev => [
+      ...prev,
+      { ...newTx, id: crypto.randomUUID() } // ✅ better ID
+    ]);
   };
 
   const deleteTransaction = (id) => {
     setTransactions(prev => prev.filter(tx => tx.id !== id));
   };
 
-  const value = {
+  // ✅ Memoize value (performance optimization)
+  const value = useMemo(() => ({
     transactions,
     addTransaction,
     deleteTransaction,
@@ -43,8 +62,17 @@ export const FinanceProvider = ({ children }) => {
     searchQuery,
     setSearchQuery,
     sortBy,
-    setSortBy
-  };
+    setSortBy,
+    isMobileMenuOpen,
+    setIsMobileMenuOpen
+  }), [
+    transactions,
+    role,
+    filterType,
+    searchQuery,
+    sortBy,
+    isMobileMenuOpen
+  ]);
 
   return (
     <FinanceContext.Provider value={value}>

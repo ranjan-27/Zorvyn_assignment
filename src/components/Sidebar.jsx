@@ -10,10 +10,10 @@ import {
 } from 'lucide-react';
 
 const Sidebar = () => {
-  const { role, setRole } = useFinance();
+  const { role, setRole, isMobileMenuOpen } = useFinance();
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
       <div className="logo">
         <Wallet size={28} />
         FinanceDash

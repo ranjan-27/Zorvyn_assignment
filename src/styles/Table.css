@@ -23,6 +23,30 @@
 .table-actions {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .table-actions {
+    width: 100%;
+  }
+  .search-input, .filter-select, .table-actions button {
+    flex: 1;
+    min-width: unset;
+  }
+  .table-actions > div {
+    flex: 1;
+    min-width: 120px;
+  }
+  .search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .search-input {
