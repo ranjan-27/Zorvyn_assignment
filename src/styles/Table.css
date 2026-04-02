@@ -1,0 +1,131 @@
+.table-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.table-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  outline: none;
+  min-width: 200px;
+}
+
+.filter-select {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+th:hover {
+  color: var(--text-color);
+}
+
+td {
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge.income {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.badge.expense {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.amount {
+  font-weight: 600;
+}
+
+.amount.income {
+  color: #10b981;
+}
+
+.amount.expense {
+  color: var(--text-color);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
+
+.action-cell {
+  width: 50px;
+  text-align: center;
+}
