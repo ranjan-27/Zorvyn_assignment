@@ -195,7 +195,7 @@ npm run dev
 ## 📌 Conclusion
 
 This project demonstrates the ability to build a clean, functional, and scalable frontend dashboard.
-It focuses on user experience, structured code, and real-world application design.
+It focuses on user experience, structured code, and real-world application design..
 
 ---
 
